@@ -13,10 +13,17 @@ import java.util.List;
 
 public class RNFetchBlobPackage implements ReactPackage {
 
+    private RNFetchLocalFileCacheProvider fileCacheProvider;
+
+    public RNFetchBlobPackage(RNFetchLocalFileCacheProvider cacheProvider) {
+        this.fileCacheProvider = cacheProvider;
+    }
+
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new RNFetchBlob(reactContext));
+        modules.add(new RNFetchBlob(reactContext, fileCacheProvider));
         return modules;
     }
 

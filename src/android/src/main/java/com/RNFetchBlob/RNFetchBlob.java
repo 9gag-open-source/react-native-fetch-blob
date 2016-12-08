@@ -27,12 +27,14 @@ public class RNFetchBlob extends ReactContextBaseJavaModule {
     static LinkedBlockingQueue<Runnable> fsTaskQueue = new LinkedBlockingQueue<>();
     static ThreadPoolExecutor fsThreadPool = new ThreadPoolExecutor(2, 10, 5000, TimeUnit.MILLISECONDS, taskQueue);
     static public boolean ActionViewVisible = false;
+    static RNFetchLocalFileCacheProvider FileCacheProvider;
 
-    public RNFetchBlob(ReactApplicationContext reactContext) {
+    public RNFetchBlob(ReactApplicationContext reactContext, RNFetchLocalFileCacheProvider cacheProvider) {
 
         super(reactContext);
 
         RCTContext = reactContext;
+        FileCacheProvider = cacheProvider;
     }
 
     @Override

@@ -26,9 +26,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -43,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.ConnectionPool;
-import okhttp3.CookieJar;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -187,6 +183,18 @@ public class RNFetchBlobReq extends BroadcastReceiver implements Runnable {
             this.destPath = this.options.path;
         else if(this.options.fileCache)
             this.destPath = RNFetchBlobFS.getTmpPath(RNFetchBlob.RCTContext, cacheKey) + ext;
+
+        File localFileCache = RNFetchBlob.FileCacheProvider.getLocalFileCache(url);
+        if (localFileCache != null) {
+            if (localFileCache.exists()) {
+                File newFile = RNFetchBlobFS.cpInternal(localFileCache.getAbsolutePath(), this.destPath);
+                if (newFile != null) {
+                    callback.invoke(null, RNFetchBlobConst.RNFB_RESPONSE_PATH, newFile.getAbsolutePath());
+                    return;
+                }
+
+            }
+        }
 
 
         OkHttpClient.Builder clientBuilder;
