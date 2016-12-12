@@ -462,6 +462,45 @@ public class RNFetchBlobFS {
         }
     }
 
+    static File cpInternal(String path, String dest) {
+        path = normalizePath(path);
+        InputStream in = null;
+        OutputStream out = null;
+
+        File outputFile = null;
+
+        try {
+            if(!new File(dest).exists()) {
+                outputFile = new File(dest);
+                outputFile.createNewFile();
+            }
+
+            in = inputStreamFromPath(path);
+            out = new FileOutputStream(dest);
+
+            byte[] buf = new byte[10240];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+
+            }
+
+            return outputFile;
+        }
+    }
+
     /**
      * Move file
      * @param path Source file path
