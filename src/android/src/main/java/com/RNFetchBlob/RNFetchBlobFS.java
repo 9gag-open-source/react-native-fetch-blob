@@ -467,11 +467,10 @@ public class RNFetchBlobFS {
         InputStream in = null;
         OutputStream out = null;
 
-        File outputFile = null;
+        File outputFile = new File(dest);
 
         try {
-            if(!new File(dest).exists()) {
-                outputFile = new File(dest);
+            if(!outputFile.exists()) {
                 outputFile.createNewFile();
             }
 
