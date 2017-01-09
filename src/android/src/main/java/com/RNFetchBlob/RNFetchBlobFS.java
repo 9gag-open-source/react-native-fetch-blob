@@ -470,6 +470,9 @@ public class RNFetchBlobFS {
         File outputFile = new File(dest);
 
         try {
+            if (!outputFile.getParentFile().exists()) {
+                outputFile.getParentFile().mkdirs()
+            }
             if(!outputFile.exists()) {
                 outputFile.createNewFile();
             }
