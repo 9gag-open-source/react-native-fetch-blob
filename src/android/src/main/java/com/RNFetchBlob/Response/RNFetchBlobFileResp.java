@@ -47,7 +47,7 @@ public class RNFetchBlobFileResp extends ResponseBody {
             mPath = path;
             File f = new File(path);
 	    if (!f.getParentFile().exists()) {
-		f.getParentFile().mkdirs()    
+		f.getParentFile().mkdirs();    
 	    }
             if(f.exists() == false)
                 f.createNewFile();
