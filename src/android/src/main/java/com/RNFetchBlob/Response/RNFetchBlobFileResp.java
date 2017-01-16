@@ -41,11 +41,14 @@ public class RNFetchBlobFileResp extends ResponseBody {
         this.originalBody = body;
         assert path != null;
         this.mPath = path;
-        if (path != null) {
+	if (path != null) {
             boolean appendToExistingFile = !overwrite;
             path = path.replace("?append=true", "");
             mPath = path;
             File f = new File(path);
+	    if (!f.getParentFile().exists()) {
+		f.getParentFile().mkdirs()    
+	    }
             if(f.exists() == false)
                 f.createNewFile();
             ofStream = new FileOutputStream(new File(path), appendToExistingFile);
