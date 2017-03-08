@@ -8,7 +8,13 @@
 
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<React/RCTBridge.h>)
+#import <React/RCTBridge.h>
+#else
 #import "RCTBridge.h"
+#endif
+
 #import "RNFetchBlob.h"
 #import "RCTEventDispatcher.h"
 #import "RNFetchBlobFS.h"
