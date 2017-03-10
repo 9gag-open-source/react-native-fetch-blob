@@ -5,10 +5,19 @@
 //
 
 #import "RNFetchBlob.h"
+
+#if __has_include(<React/RCTLog.h>)
+#import <React/RCTLog.h>
+#import <React/RCTBridge.h>
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTRootView.h>
+#else
 #import "RCTLog.h"
-#import "RCTRootView.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
+#import "RCTRootView.h"
+#endif
+
 #import "RNFetchBlobFS.h"
 #import "RNFetchBlobNetwork.h"
 #import "RNFetchBlobConst.h"

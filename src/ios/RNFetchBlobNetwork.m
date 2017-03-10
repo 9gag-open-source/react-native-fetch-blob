@@ -5,14 +5,22 @@
 //  Created by wkh237 on 2016/6/6.
 //  Copyright © 2016 wkh237. All rights reserved.
 //
-
-#import "RCTLog.h"
 #import <Foundation/Foundation.h>
+
+#if __has_include(<React/RCTLog.h>)
+#import <React/RCTLog.h>
+#import <React/RCTBridge.h>
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTRootView.h>
+#else
+#import "RCTLog.h"
 #import "RCTBridge.h"
-#import "RNFetchBlob.h"
 #import "RCTEventDispatcher.h"
-#import "RNFetchBlobFS.h"
 #import "RCTRootView.h"
+#endif
+
+#import "RNFetchBlob.h"
+#import "RNFetchBlobFS.h"
 #import "RNFetchBlobNetwork.h"
 #import "RNFetchBlobConst.h"
 #import "RNFetchBlobReqBuilder.h"
